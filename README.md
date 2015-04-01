@@ -24,8 +24,8 @@ Use the full path for drush on the apache-server container e.g. /root/.composer/
 Drush requires ssh on the machines it's going to manage.  I think this is only required on the webhead.  There is a link in the TODO section that describes how to proxy ssh connections using drush options so it should be possible to create two sets of drupal aliases one for the physical host machine that proxies a connection to the vagrant vm which then connects to the docker over ssh.  The other set connect to the webhead from the vagrant proxy so the user doesnt need to set anything up, just 'vagrant ssh' the 'drush cc all' etc.
 Once drush is setup it can then handle the sql connection to install the db if required.
 
-## instead of ssh
-we can use vagrant docker-run to run commands on the instance after it's booted up. 
+##SSH
+instead of ssh we can use vagrant docker-run to run commands on the instance after it's booted up. 
 So for instance we should be able to run the mysql command to load the db assuming the sql file is available, or run drush site-install on the apache-webhead without requiring ssh
 
 ##Drupal
