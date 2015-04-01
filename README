@@ -36,9 +36,8 @@ So for instance we should be able to run the mysql command to load the db assumi
 This removes the need to have a local files directory (we have one tho to support uploads). When a file request is received it is proxied to the live/staging server and then copied locally. nuff said. The url is defined in the env_variables.config file
 
 **TODO**
-0.1 increase php ram
 1. Varnish server
-2. Solr server
+2. Solr server configuration
 3. mysql webadmin interface
 4. sites/all/translations needs to be writable by the webserver or download all translations at once
 6. behat editor interface
