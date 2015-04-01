@@ -36,7 +36,7 @@ So for instance we should be able to run the mysql command to load the db assumi
 This removes the need to have a local files directory (we have one tho to support uploads). When a file request is received it is proxied to the live/staging server and then copied locally. nuff said. The url is defined in the env_variables.config file
 
 
-useful commands**
+useful commands
 -----------------
 vagrant status 				returns the status of all the containers that are part of this VM
 vagrant global-status   	lists the status of all the VMs and containers running on this host
@@ -44,29 +44,28 @@ vagrant docker-logs <id> 	returns the log output of a specific container where i
 vagrant docker-run <id> -- cmd  runs 'cmd' on a fresh container of type
 vagrant docker-run apache-server -- drush -r /vagrant/src/docroot upwd superuser --password=superuser
 vagrant docker-run apache-server -- drush -r /vagrant/src/docroot cc all
------------------ 
 
-# SSH to the proxy vm (that houses the containers in the docker instance)
+### SSH to the proxy vm (that houses the containers in the docker instance)
 
-# get the id of the default host
+### get the id of the default host
 vagrant global-status
 
-# connect to the host where id is the first 4 chars of the id string
+### connect to the host where id is the first 4 chars of the id string
 vagrant ssh <id> 
 
-# find the id of the container you want to connect to
+### find the id of the container you want to connect to
 docker ps -a
 
-# spawn a bash shell
+### spawn a bash shell
 docker exec -it <id> /bin/bash
 
-# connect to the shell
+### connect to the shell
 docker attach <id>
 
-# SSH into a container
+### SSH into a container
 If you're trying to do this then you're probably doing something wrong... talk to steev@initsix.co.uk
 
-Changing container and vm configuration
+##Changing container and vm configuration
 One thing that wasn't clear from the existing docs was that `vagrant ssh hexaddress` etc can be used to target individual containers and vms.  But is also REQUIRED to target the proxy vm.  so executing `vagrant halt;vagrant destroy -f' in the vagrant directory, doesnt affect the proxy vm.  you need to do `vagrant halt hexaddess;vagrant destroy -f hexaddress` etc
 
 additionally, vagrant reload doesnt work as you'd expect it.  it requires a complete deletion to get new networking and folder configs into the vm.  so if you change a port or a folder you need to completely nuke the set and being again. 
