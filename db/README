@@ -1,0 +1,3 @@
+Here are all the backups of the database during development. You can configure sql_url to get the database from this directory. 
+As been as all the backups are here too it is suggested that you create a softlink to the backup you want to restore. so db.sql is only ever a soft link to another sql file. 
+It's possible to have this soft link update on each backup too so rebuilding the dockers is easy

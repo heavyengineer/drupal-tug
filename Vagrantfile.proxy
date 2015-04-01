@@ -1,0 +1,28 @@
+VAGRANTFILE_API_VERSION = "2"
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
+#ENV['VAGRANT_LOG'] ||= 'info'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|  
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.provision "docker"
+  config.vm.provision "shell", inline:
+    "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
+
+config.vm.provider :virtualbox do |vb|
+	vb.customize ["modifyvm", :id, "--memory", 3072]
+	vb.customize ["modifyvm", :id, "--cpus", 2]
+#	vb.name = "yoink"
+        end
+begin
+
+# Apache
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
+# MySQL
+  config.vm.network :forwarded_port, guest: 3306, host: 3306 
+# Memcache
+  config.vm.network :forwarded_port, guest: 11211, host: 11211 
+# solr
+  config.vm.network :forwarded_port, guest: 8983, host: 8983 
+end
+end
