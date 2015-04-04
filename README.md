@@ -140,10 +140,8 @@ when the script runs it will switch to the branch noted in ./env_variables.confi
 Php configuration by .htaccess is hard to do as the .htaccess is mounted internally in the container, the .htaccess in your docroot on your local machine will have no effect. Php Directives are set in the Dockerfile when the container is built. 
 
 ###Xdebug
-To get this to work we need to map the ports from the local vagrant machine to the laptop somehow.  So when the debugger client sends a request, the webserver opens a connection to either a known ip or the ip specified in the request header from the debugger client. We prob have little control here so to prevent the user having to do some configuration i think we should specify some good defaults to work in 80% of situations. 
-If you need to debug or make sure traffic is happening, do this on the vagrant proxy machine sudo tcpdump -i eth0  -s 1500 port 9000
-So traffic is getting from the remote machine to the virtual host but then isnt getting routed to the IDE on the physical machine.  Ideally we need to automate this but for now add an ip address in the env config or something and write a manual rule to o map the ports to the physical machine
-
+This should just work.  So in netbeans i configure the remote host and then map the directories so the remote file path /var/www/sites/docroot/index.php should correspond to the local directory drupal-tug/src/docroot/index.php
+Xdebug is setup to accept your ip address and route the traffic back to it. 
 
 #TODO
 1. Varnish server
