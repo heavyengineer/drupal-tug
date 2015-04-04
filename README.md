@@ -142,6 +142,7 @@ Php configuration by .htaccess is hard to do as the .htaccess is mounted interna
 ###Xdebug
 This should just work.  So in netbeans i configure the remote host and then map the directories so the remote file path /var/www/sites/docroot/index.php should correspond to the local directory drupal-tug/src/docroot/index.php
 Xdebug is setup to accept your ip address and route the traffic back to it. 
+If the version of Drupal in the apache-server (which is downloaded each time the container is built) doesnt match the version in drupal-tug/src/docroot - then you will have odd symptoms where xdebug appears to be working but gets stuck on empty lines - because the files are mismatched
 
 #TODO
 1. Varnish server
