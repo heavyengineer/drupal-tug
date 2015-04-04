@@ -75,6 +75,18 @@ So when the container is built it downloads the latest drupal to /var/www/site i
 ###Stage File Proxy
 This removes the need to have a local files directory (we have one tho to support uploads to the apache-server). When a file request is received it is proxied to the live/staging server and then copied locally. nuff said. The url is defined in the env_variables.config file
 
+###Thalt.ssh
+`Thalt.ssh` will connect to the proxy vm and halt the vm, suspending the containers.
+
+###backupdb.sh
+`backupdb.sh` will start a new mysql-server container, and create a backup in drupal-tug/db - this is date time stamped
+
+###reload_db.sh
+`reload_db.sh` will start a new mysql-server containers, drop the db and load the file in drupal-tug/db/db.sql
+The aspiration is for db.sql to be a softlink to the various backups but sometimes this causes a weird loop with the drush commands used to rebuild the db so best to rename the backup to db.sql
+
+### how to rebuild?
+Run ./build_env.sh - this will reuse the containers downloaded and created (so it is faster) but will rerun all the drupal commands so you effectively have a fresh build. 
 
 Useful commands
 -----------------
