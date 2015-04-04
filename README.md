@@ -4,18 +4,19 @@ It provides the following benefits:
 
 1. The infrastructure can be stored in git (env_variables.conf is all thats needed)
 2. Developers joining your project have a greatly reduced rampup time - configure, or supply a configured, env_variables.config, run ./build_env.sh - get some coffee, come back in 20 mins, connect to localhost:8080 - start developing
-3. Instead of migrating to a production infrastructure developers can develop the code on a near complete (if not complete) development environment significantly de-risking complex infrastructure deployments
+3. Instead of migrating to a production infrastructure developers can develop the code on a near complete (if not complete) production environment significantly de-risking complex infrastructure deployments
 4.  Never again will you hear 'well it works locally for me'
 
 ##Quickstart - How to use
 ###Build from an exsiting repo
 ####configure the env_variables.config file
-1. set the repo_url - this is a standard git repo where your drupal site is installed.  It should follow Acquia standards, so we're expecting the drupal site to be in docroot in the repo.  So once cloned it should be <repo>/docroot/index.php
- set client_name and site_name (this is a regular string used to populate the drupal site-name variable)
-2. set the repo_url - this is a standard git repo where your drupal site is installed.  It should follow acquia standards, so we're expecting the drupal site to be in docroot in the repo.  So once cloned it should be <repo>/docroot/index.php
-3. set default_branch - when the repo is downloaded it will automatically switch to this branch (e.g. develop) else will remain on master
-4. set sql_url - Unless you are building from hook_install() (not tested yet) then supply an sql file to start from. This should be in the ./db/ directory and should be named db.sql - so a known good setting for this var is db/db.sql 
+1. Set client_name and site_name (this is a regular string used to populate the drupal site-name variable)
+2. Set the repo_url - this is a standard git repo where your drupal site is installed.  It should follow acquia standards, so we're expecting the drupal site to be in docroot in the repo.  So once cloned it should be <repo>/docroot/index.php
+3. Set default_branch - when the repo is downloaded it will automatically switch to this branch (e.g. develop) else will remain on master
+4. Set sql_url - Unless you are building from hook_install() (not tested yet) then supply an sql file to start from. This should be in the ./db/ directory and should be named db.sql - so a known good setting for this var is db/db.sql 
+
 *** Danger Will Robinson ***
+
 If you download an sql file using something like phpmyadmin - you may find there is a line which creates a database and sets that db to be used during the install.  This will cause the build to fail (although all the containers will still run) as the app is looking for a db named drupal - not whatever phpmyadmin is setting it as.  So best to delete these lines and allow Drupal-tug to handle the db for you.  This problem doesnt exist is you use mysqldump to create the sql file. 
  
 ###Build a new site from scratch (no db, no existing repo)
