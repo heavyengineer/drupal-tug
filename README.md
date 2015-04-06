@@ -39,11 +39,14 @@ Only your local machine, i.e. from your laptop, not from any virtual environment
 3. Memcache - connect to localhost:11211 (using nc or similar) and type 'stats' you should get a positive return
 4. solr - connect to localhost:9000/solr (by default a solr server won't be configured.  See the vars in Vagrantfile.
 
+### Cannot forward port 8080 etc
+* If the build fails and complains that it cannot forward a port (for instance cannot forward port 8080) - then this is likely because you already have an app running on that port on your local machine.  Either disable the app on your local machine or change the Vagrantfile and the ports (easier to disable the local app using the port).
+
 ##Details
 
 What happens is this:
 - Ubuntu 14 VM host machine is created in virtual box with docker installed in it
-- Then the vagrantfile downloads and installs the containers from docker.io (except apache-server which is currently built from source)
+- Then the vagrantfile downloads and installs the containers (apache, mysql, memcache and solr) from docker.io (except apache-server which is currently built from source)
 - The apache webserver is looking at it's own internal version of Drupal as the docroot, i.e. the src directory in your local directory is not used except for sites/all - which is linked from the webserver
 
 ##DRUSH (Ddrush.sh)
