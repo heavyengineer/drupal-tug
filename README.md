@@ -80,7 +80,9 @@ So when the container is built it downloads the latest drupal to /var/www/site i
 This removes the need to have a local files directory (we have one tho to support uploads to the apache-server). When a file request is received it is proxied to the live/staging server and then copied locally. nuff said. The url is defined in the env_variables.config file
 
 ###Thalt.ssh
-`Thalt.ssh` will connect to the proxy vm and halt the vm, suspending the containers.
+`Thalt.ssh` will connect to the proxy vm and halt the vm, suspending the containers.  So when i want to down a machine i do `./Thalt.ssh` then switch to another drupal-tug and do `./build_env.sh`
+
+Sometimes, on my linux box, i get an error when i re-run `build_env.sh` - i need to nuke the apache-server and rebuild it, something to do with the vboxfs stuff.  I just do `vagrant destroy -f apache-server`, then redo the `build_env.sh` - takes about another 10seconds but rebuilds the FS layers from disk.
 
 ###backupdb.sh
 `backupdb.sh` will start a new mysql-server container, and create a backup in drupal-tug/db - this is date time stamped
