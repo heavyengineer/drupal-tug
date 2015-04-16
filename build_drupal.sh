@@ -12,7 +12,7 @@ echo "building site for ${client_name}"
 if [ -z ${scratch} ];then
 
 # if docroot doesnt exist, clone it in
-if [ ! -d ${repo_dir}/docroot ]; then
+if [ ! -d ${repo_dir}docroot ]; then
 	echo "cloning remote git repo"
 	git clone $repo_url $repo_dir
 	echo "Running git clone ${repo_url} $repo_dir"
