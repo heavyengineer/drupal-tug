@@ -18,10 +18,10 @@ $databases = array (
   ),
 );
 
-if(file_exists('sites/all/modules/memcache/memcache.inc')){
+if(file_exists('sites/all/modules/contrib/memcache/memcache.inc')){
 $conf['memcache_servers'] = array('memcache-server:11211'=>'default');
-$conf['cache_backends'][] = 'sites/all/modules/memcache/memcache.inc';
-$conf['lock_inc'] = 'sites/all/modules/memcache/memcache-lock.inc';
+$conf['cache_backends'][] = 'sites/all/modules/contrib/memcache/memcache.inc';
+$conf['lock_inc'] = 'sites/all/modules/contrib/memcache/memcache-lock.inc';
 $conf['memcache_stampede_protection'] = TRUE;
 $conf['cache_default_class'] = 'MemCacheDrupal';
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
