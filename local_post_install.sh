@@ -6,7 +6,7 @@ source ./drupal_variables.config
 
 # set the fast var to skip the majority of drush commands to speed things up
 # useful when developing drupal-tug
-fast=1
+fast=
 if [ ! "$fast" ]; then
 
 # add the memcache module if it's not already installed
@@ -30,9 +30,6 @@ $vagrant_apache_docker_run -- $drush dl $download $download_only
 # we do this in a seperate stanza
 enable_sub_modules="views_ui admin_devel views_ui admin_menu_toolbar apachesolr_search"
 $vagrant_apache_docker_run -- $drush en $download $enable_sub_modules 
-
-# enable local modules
-#$vagrant_apache_docker_run -- ${drush} en  
 
 # feature revert
 $vagrant_apache_docker_run -- $drush fra
