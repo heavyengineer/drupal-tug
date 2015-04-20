@@ -56,19 +56,28 @@ EXPOSE 80 443
 ADD ./apache-config.config /etc/apache2/sites-enabled/000-default.conf
 
 # Create the site directory
-RUN mkdir -p /var/www/site/
+RUN mkdir -p /var/www/site/docroot
+
+#########
+# All the drupal configuration should be done with local scripts to sync the files from the local 
+# host to the container in vagrant. All this stuff should still work so long as we can talk 
+# directly to the dockerd on the vhost
+#########
+
+# All these commands should be run from a command such as Tsync.sh which will run on the host
+# machine and sync to the container
 
 # The Drupal code will reside on the host and be remapped using a soft link
 # link the /vagrant/src/docroot/sites/all/ directory to /var/www/site/docroot/sites/all
-RUN ln -s /vagrant/src/docroot /var/www/site/
+#RUN ln -s /vagrant/src/docroot /var/www/site/
 
 # Create files directory in a writeable dir accessible to the apache-server
 # This will be remapped in the settings.php on the host machine
-RUN mkdir /var/www/site/files;chown www-data:www-data /var/www/site/files
+#RUN mkdir /var/www/site/files;chown www-data:www-data /var/www/site/files
 #
 # Create translations directory - this needs to be writable by the webserver, this is
 # not the default path so the variable setting needs to be captured. 
-RUN mkdir /var/www/site/translations;chown www-data:www-data /var/www/site/translations
+#RUN mkdir /var/www/site/translations;chown www-data:www-data /var/www/site/translations
 #
 #
 # # By default, simply start apache.

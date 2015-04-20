@@ -1,13 +1,12 @@
 VAGRANTFILE_API_VERSION = "2"  
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
-#ENV['VAGRANT_LOG'] ||= 'info'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 memcache=1
 mysql=1
-mysql-slave=1
+mysql-slave=0
 apache=1
 solr=0
 
@@ -55,25 +54,24 @@ if mysql == 1
  end
 end
 
-if mysql-slave == 1
-  config.vm.define "mysql-slave" do |v|
-   v.vm.provider "docker" do |d|
-      d.name = "mysql-slave"
-      d.image = "steevi6/mysql-server"
-      d.ports = ["3306:3306"]
-      d.remains_running = TRUE
-      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
-      d.has_ssh = FALSE
-      d.force_host_vm = true
-  end
- end
-end
+#if mysql-slave == 1
+#  config.vm.define "mysql-slave" do |v|
+#   v.vm.provider "docker" do |d|
+#      d.name = "mysql-slave"
+#      d.image = "steevi6/mysql-server"
+#      d.ports = ["3306:3306"]
+#      d.remains_running = TRUE
+#      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+#      d.has_ssh = FALSE
+#      d.force_host_vm = true
+#  end
+# end
+#end
 
 if apache == 1
 
 config.vm.define "apache-server" do |v|
-# no need to do any folder syncing as the project folder is already shared in /vagrant so the git repo should live there 
-# and be linked to by soft link
+# no need to do any folder syncing as the project folder is already shared in /vagrant so the git repo should live there and be linked to by soft link
     v.vm.provider "docker" do |d|
       	d.name = "apache-server"
       #	d.image = "steevi6/apache-php:latest"
@@ -93,6 +91,7 @@ config.vm.define "apache-server" do |v|
 	end
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
       d.force_host_vm = true
+	d.volumes = ["/mnt/:/var/www/site/"]
     end
   end
 end

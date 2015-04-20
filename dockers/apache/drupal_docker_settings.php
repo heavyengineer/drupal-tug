@@ -35,3 +35,6 @@ $update_free_access = TRUE;
 
 // prevent the drupal http request fails from showing in the error report
 $conf['drupal_http_request_fails'] = FALSE;
+
+// set the default files directory to something writeable
+$conf['file_public_path'] = '/var/www/site/files';
