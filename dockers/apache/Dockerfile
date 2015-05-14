@@ -43,9 +43,13 @@ RUN mv composer.phar /usr/local/bin/composer
 # Install Drush
 RUN composer global require drush/drush:dev-master
 
+# add a vagrant user so the uids (should be 1000) match the vm for file sharing
+RUN useradd vagrant
 # # Manually set up the apache environment variables
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
+#ENV APACHE_RUN_USER www-data
+#ENV APACHE_RUN_GROUP www-data
+ENV APACHE_RUN_USER vagrant
+ENV APACHE_RUN_GROUP vagrant
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
@@ -53,10 +57,13 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 EXPOSE 80 443
 
 # Update the default apache site with the config we created.
+ADD ./envvars /etc/apache2/envvars
+
+# Update the default apache site with the config we created.
 ADD ./apache-config.config /etc/apache2/sites-enabled/000-default.conf
 
 # Create the site directory
-RUN mkdir -p /var/www/site/docroot
+#RUN mkdir -p /var/www/site/docroot
 
 #########
 # All the drupal configuration should be done with local scripts to sync the files from the local 

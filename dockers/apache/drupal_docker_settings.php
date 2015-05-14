@@ -37,4 +37,4 @@ $update_free_access = TRUE;
 $conf['drupal_http_request_fails'] = FALSE;
 
 // set the default files directory to something writeable
-$conf['file_public_path'] = '/var/www/site/files';
+//$conf['file_public_path'] = '/var/www/site/files';
