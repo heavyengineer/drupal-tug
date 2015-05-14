@@ -1,8 +1,5 @@
 #!/bin/bash
 # stuff that should be done after each db reload for instance and things that are unique to this installation
-source ../config/env_variables.config
-source ../config/drupal_variables.config
-source ../config/vagrant_commands.config
 
 if [ ! "$fast" ]; then
 
