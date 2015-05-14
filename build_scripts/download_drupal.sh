@@ -30,14 +30,26 @@ fi
 # get the latest version of drupal into a var
 # if no version is set then get the latest
 if [ -z "$drupal_version" ];then
+
 echo "getting latest version of drupal from drupal.org"
-latest_drupal_version=`wget -O- http://drupal.org/project/drupal | egrep -o 'drupal-[0-9\.]+.tar.gz' | sort -V  | tail -1`
+
+# wget isnt available on stock macosx
+#latest_drupal_version=`wget -O- http://drupal.org/project/drupal | egrep -o 'drupal-[0-9\.]+.tar.gz' | sort -V  | tail -1`
+latest_drupal_version=`curl -Lvs http://drupal.org/project/drupal 2>&1 |  egrep -o 'drupal-[0-9\.]+.tar.gz' | sort  | tail -1`
+echo $latest_drupal_version
 
 #check if the version already exists on disk
 if [ ! -f "$latest_drupal_version" ]; then
+
 # Download the latest version
 echo "downloading drupal version $latest_drupal_version"
-wget  http://ftp.drupal.org/files/projects/$latest_drupal_version
+
+# wget isn't available by default on a mac
+#wget  http://ftp.drupal.org/files/projects/$latest_drupal_version
+curl --silent --output ./$latest_drupal_version  http://ftp.drupal.org/files/projects/$latest_drupal_version
+# check the format of this file
+echo "checking file format $latest_drupal_version"
+file $latest_drupal_version
 fi
 
 # ensure ./src/docroot exists
