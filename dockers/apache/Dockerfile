@@ -6,6 +6,7 @@
 # Set the base image to Ubuntu
 FROM ubuntu:trusty
 
+#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # File Author / Maintainer
 MAINTAINER steev@initsix.co.uk
 
@@ -42,39 +43,49 @@ RUN mv composer.phar /usr/local/bin/composer
 # Install Drush
 RUN composer global require drush/drush:dev-master
 
+# add a vagrant user so the uids (should be 1000) match the vm for file sharing
+RUN useradd vagrant
 # # Manually set up the apache environment variables
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
+#ENV APACHE_RUN_USER www-data
+#ENV APACHE_RUN_GROUP www-data
+ENV APACHE_RUN_USER vagrant
+ENV APACHE_RUN_GROUP vagrant
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 #  
 EXPOSE 80 443
-#  
-# copy custom settings
 
-# # Update the default apache site with the config we created.
+# Update the default apache site with the config we created.
+ADD ./envvars /etc/apache2/envvars
+
+# Update the default apache site with the config we created.
 ADD ./apache-config.config /etc/apache2/sites-enabled/000-default.conf
 
-# use drush to download a copy of the current drupal core to /var/www/site/docroot
-RUN /root/.composer/vendor/bin/drush dl drupal --drupal-project-rename=docroot
-RUN mkdir /var/www/site;mv docroot/ /var/www/site/
+# Create the site directory
+#RUN mkdir -p /var/www/site/docroot
 
-# add settings files
-# ADD is in the context of the dockerfile, not the vagrant file
-ADD ./drupal_docker_default.settings.php /var/www/site/docroot/sites/default/settings.php
-ADD ./drupal_docker_settings.php /var/www/site/docroot/sites/default/
-RUN chmod 444 /var/www/site/docroot/sites/default/*.php
+#########
+# All the drupal configuration should be done with local scripts to sync the files from the local 
+# host to the container in vagrant. All this stuff should still work so long as we can talk 
+# directly to the dockerd on the vhost
+#########
 
-# Create files directory
-RUN mkdir /var/www/site/docroot/sites/default/files;chown www-data:www-data /var/www/site/docroot/sites/default/files
+# All these commands should be run from a command such as Tsync.sh which will run on the host
+# machine and sync to the container
+
+# The Drupal code will reside on the host and be remapped using a soft link
+# link the /vagrant/src/docroot/sites/all/ directory to /var/www/site/docroot/sites/all
+#RUN ln -s /vagrant/src/docroot /var/www/site/
+
+# Create files directory in a writeable dir accessible to the apache-server
+# This will be remapped in the settings.php on the host machine
+#RUN mkdir /var/www/site/files;chown www-data:www-data /var/www/site/files
 #
 # Create translations directory - this needs to be writable by the webserver, this is
 # not the default path so the variable setting needs to be captured. 
-RUN mkdir /var/www/site/docroot/sites/default/translations;chown www-data:www-data /var/www/site/docroot/sites/default/translations
+#RUN mkdir /var/www/site/translations;chown www-data:www-data /var/www/site/translations
 #
-# # link the /vagrant/src/docroot/sites/all/ directory to /var/www/site/docroot/sites/all
-RUN rm -rf /var/www/site/docroot/sites/all;ln -s /vagrant/src/docroot/sites/all /var/www/site/docroot/sites/
 #
 # # By default, simply start apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND

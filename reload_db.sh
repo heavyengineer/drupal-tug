@@ -1,6 +1,7 @@
 #!/bin/bash
-source ./env_variables.config
-source ./drupal_variables.config
+source ./config/env_variables.config
+source ./config/drupal_variables.config
+source ./config/vagrant_commands.config
 
 #reloads the db
 echo "loading db"
