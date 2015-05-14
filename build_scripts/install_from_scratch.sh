@@ -24,8 +24,7 @@ echo "Apache Root == $apache_root"
 
 if [ "$drupal_version" ];then
 echo "drupal_version is set to $drupal_version so we will try and get that version"
-source ./build_scripts/copy_drupal_to_apache-server_container.sh
-fi
+
 ###########################
 ####### copy a working settings file
 ###########################
@@ -33,9 +32,12 @@ fi
 # @TODO move the settings file to somewhere obvious
 cp dockers/apache/drupal_docker_settings.php ./src/docroot/sites/default/settings.php
 
+fi
+
 #########################
 #### run site install on the apache-server container
 ########################
 
 echo "running site install on the apache-server"
-#$vagrant_apache_docker_run  -- $drush_site_install
+
+$vagrant_apache_docker_run  -- $drush_site_install
