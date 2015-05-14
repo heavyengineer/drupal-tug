@@ -71,7 +71,6 @@ end
 if apache == 1
 
 config.vm.define "apache-server" do |v|
-# no need to do any folder syncing as the project folder is already shared in /vagrant so the git repo should live there and be linked to by soft link
     v.vm.provider "docker" do |d|
       	d.name = "apache-server"
       #	d.image = "steevi6/apache-php:latest"
@@ -91,7 +90,6 @@ config.vm.define "apache-server" do |v|
 	end
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
       d.force_host_vm = true
-	d.volumes = ["/mnt/:/var/www/site/"]
     end
   end
 end
