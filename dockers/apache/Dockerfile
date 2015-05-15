@@ -42,39 +42,27 @@ RUN mv composer.phar /usr/local/bin/composer
 # Install Drush
 RUN composer global require drush/drush:dev-master
 
+# add a vagrant user so the uids (should be 1000) match the vm for file sharing
+RUN useradd vagrant
 # # Manually set up the apache environment variables
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
+ENV APACHE_RUN_USER vagrant
+ENV APACHE_RUN_GROUP vagrant
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 #  
 EXPOSE 80 443
-#  
+#
 # copy custom settings
 
 # # Update the default apache site with the config we created.
 ADD ./apache-config.config /etc/apache2/sites-enabled/000-default.conf
 
-# use drush to download a copy of the current drupal core to /var/www/site/docroot
-RUN /root/.composer/vendor/bin/drush dl drupal --drupal-project-rename=docroot
-RUN mkdir /var/www/site;mv docroot/ /var/www/site/
+# Update the default apache site with the config we created.
+ADD ./envvars /etc/apache2/envvars
 
-# add settings files
-# ADD is in the context of the dockerfile, not the vagrant file
-ADD ./drupal_docker_default.settings.php /var/www/site/docroot/sites/default/settings.php
-ADD ./drupal_docker_settings.php /var/www/site/docroot/sites/default/
-RUN chmod 444 /var/www/site/docroot/sites/default/*.php
+# Update the default apache site with the config we created.
+ADD ./apache-config.config /etc/apache2/sites-enabled/000-default.conf
 
-# Create files directory
-RUN mkdir /var/www/site/docroot/sites/default/files;chown www-data:www-data /var/www/site/docroot/sites/default/files
-#
-# Create translations directory - this needs to be writable by the webserver, this is
-# not the default path so the variable setting needs to be captured. 
-RUN mkdir /var/www/site/docroot/sites/default/translations;chown www-data:www-data /var/www/site/docroot/sites/default/translations
-#
-# # link the /vagrant/src/docroot/sites/all/ directory to /var/www/site/docroot/sites/all
-RUN rm -rf /var/www/site/docroot/sites/all;ln -s /vagrant/src/docroot/sites/all /var/www/site/docroot/sites/
-#
-# # By default, simply start apache.
+# By default, simply start apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
