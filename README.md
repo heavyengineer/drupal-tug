@@ -9,6 +9,8 @@
 6. Point your ide at drupal-tug/src
 7. Start developing
 
+##Overview
+
 This project provides an automated LAMP development environment specifically for large Drupal sites but can be used for any level of development. 
 It provides the following benefits:
 
