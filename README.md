@@ -1,15 +1,29 @@
 #DRUPAL-TUG
-This project provides an automated LAMP development environment specifically for large Drupal sites. 
+
+## Ultra quick-start
+1. clone the git repo `git clone git@github.com:heavyengineer/drupal-tug.git`
+2. cd into drupal-tug
+3. Run ./build_env.sh
+4. wait a few minutes
+5. Connect to http://localhost:8080
+6. Point your ide at drupal-tug/src
+7. Start developing
+
+This project provides an automated LAMP development environment specifically for large Drupal sites but can be used for any level of development. 
 It provides the following benefits:
 
-1. The infrastructure can be stored in git (env_variables.conf is all thats needed)
+1. The infrastructure can be stored in git (config/env_variables.config is all thats needed)
 2. Developers joining your project have a greatly reduced rampup time - configure, or supply a configured, env_variables.config, run ./build_env.sh - get some coffee, come back in 20 mins, connect to localhost:8080 - start developing
 3. Instead of migrating to a production infrastructure developers can develop the code on a near complete (if not complete) production environment significantly de-risking complex infrastructure deployments
-4.  Never again will you hear 'well it works locally for me'
+4.  Never again will you hear 'well it works locally for me' *ymmv
 
 ##Quickstart - How to use
-###Build from an exsiting repo
+###Build a new site from scratch (no db, no existing repo)
 ####configure the env_variables.config file
+1. If you want to install a fresh Drupal from scratch (i.e. run drush site-install) then set the sratch variable to 1 - this will run the script install_from_scratch.sh (see below)
+2. If the scratch variable is set, indicate the version of Drupal you want to download by setting the drupal_version var - else it will (should) default to the latest version)
+###Build from an exsiting repo
+####configure the config/env_variables.config file
 1. Set client_name and site_name (this is a regular string used to populate the drupal site-name variable)
 2. Set the repo_url - this is a standard git repo where your drupal site is installed.  It should follow acquia standards, so we're expecting the drupal site to be in docroot in the repo.  So once cloned it should be <repo>/docroot/index.php
 3. Set default_branch - when the repo is downloaded it will automatically switch to this branch (e.g. develop) else will remain on master
@@ -17,12 +31,8 @@ It provides the following benefits:
 
 *** Danger Will Robinson ***
 
-If you download an sql file using something like phpmyadmin - you may find there is a line which creates a database and sets that db to be used during the install.  This will cause the build to fail (although all the containers will still run) as the app is looking for a db named drupal - not whatever phpmyadmin is setting it as.  So best to delete these lines and allow Drupal-tug to handle the db for you.  This problem doesnt exist is you use mysqldump to create the sql file. 
+If you download an sql file using something like phpmyadmin - you may find there is a line which creates a database and sets that db to be used during the install.  This will cause the build to fail (although all the containers will still run) as the app is looking for a db named drupal - not whatever phpmyadmin is setting it as.  So best to delete these lines and allow Drupal-tug to handle the db for you.  This problem doesnt exist if you use mysqldump to create the sql file. 
  
-###Build a new site from scratch (no db, no existing repo)
-####configure the env_variables.config file
-1. If you want to install a fresh Drupal from scratch (i.e. run drush site-install) then set the sratch variable to 1 - this will run the script install_from_scratch.sh (see below)
-2. If the scratch variable is set, indicate the version of Drupal you want to download by setting the drupal_version var - else it will (should) default to the latest version)
 
 ### In both cases then do this
 1. run ./build_env.sh
@@ -37,17 +47,17 @@ Only your local machine, i.e. from your laptop, not from any virtual environment
 1. Apache - go to localhost:8080 in a webbrowser
 2. Mysql - connect to localhost:3306 admin/changeme - this means you can still use mysqlworkbench as normal from your dev machine
 3. Memcache - connect to localhost:11211 (using nc or similar) and type 'stats' you should get a positive return
-4. solr - connect to localhost:9000/solr (by default a solr server won't be configured.  See the vars in Vagrantfile.
+4. solr - connect to localhost:9000/solr (by default a solr server won't be configured.  See the vars in Vagrantfile.)
 
-### Cannot forward port 8080 etc
+### Cannot forward port 8080,11211 or 3306 etc
 * If the build fails and complains that it cannot forward a port (for instance cannot forward port 8080) - then this is likely because you already have an app running on that port on your local machine.  Either disable the app on your local machine or change the Vagrantfile and the ports (easier to disable the local app using the port).
 
 ##Details
 
 What happens is this:
-- Ubuntu 14 VM host machine is created in virtual box with docker installed in it
+- Ubuntu 14 VM host machine is created in virtual box with docker installed 
 - Then the vagrantfile downloads and installs the containers (apache, mysql, memcache and solr) from docker.io (except apache-server which is currently built from source)
-- The apache webserver is looking at it's own internal version of Drupal as the docroot, i.e. the src directory in your local directory is not used except for sites/all - which is linked from the webserver
+- The apache webserver is looking at your local src/ directory - it will work as if it's a local webserver
 
 ##DRUSH (Ddrush.sh)
 There is a handy util in the root directory Ddrush.sh - this is a wrapper for drush commands. Append regular drush commands, e.g.  To clear the cache run:
@@ -57,7 +67,7 @@ There is a handy util in the root directory Ddrush.sh - this is a wrapper for dr
 So any Drush commands can be appended to the ./Ddrush.sh script without having to create ssh connections etc. 
 
 If you're at a command line in the proxy vhost and trying to run Drush using the 'docker exec' stuff, then you will need to use the full path for drush on the apache-server container e.g. /root/.composer/vendor/bin/drush
-Drush requires ssh on the machines it's going to manage so the approach has been to instantiate a new container for every drush command.  this is resource intensive but the 'Docker' way.
+Drush requires ssh on the machines it's going to manage so the approach has been to instantiate a new container for every drush command.  Whilst this is resource intensive but the 'Docker' way and prevents an key mangement shenanigans.
 
 ##SSH to the proxy VM
 Another util script is Tssh.sh - this gets the hex address of the proxy vm and dumps you at the vagrant command prompt.  From there you can run your favourite docker commands as normal. 
@@ -66,15 +76,8 @@ So for instance we should be able to run the mysql command to load the db assumi
 However if you're going to ssh into the proxy, then docker exec onto the apache-server container only to run Drush, then consider using the Ddrush.sh script (described above) it's way easier at the terminal and in a script. 
 
 ##Drupal
-The configuration follows standards but may not be what you're expecting.  
-
-The directory ./src - should contain all your normal Drupal working files.  However to facilitate the webserver being able to write to the sites/default/files directory - and still run as www-data - we have had to create a dummy copy of the latest drupal core on the webserver during build (this is why the entire apache-server instance is built from scratch right now). 
-
-So when the container is built it downloads the latest drupal to /var/www/site inside the docker container.  We then soft link the sites/all directory to the shared filesystem /vagrant/src/docroot/sites/all - so if you 'hack core' in drupal-tug/src/docroot/index.php - nothing will happen as this isnt the index.php that is being used.  We are using /var/www/site/docroot/index.php  on the apache-server - this is read only on the webserver so if your app won't work and you've hacked core?  Go home developer, you're drunk. 
-
-- Only the sites/all directories are supported for editing in your IDE. 
+The configuration follows standards.
 - Further work is required for multisite - should work ok with domain access tho (untested)
-- Always downloads the latest version of drupal into the docker build.  this may not be the best behaviour
 
 ###Stage File Proxy
 This removes the need to have a local files directory (we have one tho to support uploads to the apache-server). When a file request is received it is proxied to the live/staging server and then copied locally. nuff said. The url is defined in the env_variables.config file
@@ -155,18 +158,18 @@ If you find you have broken images listed in the output of vagrant global-status
 when the script runs it will switch to the branch noted in ./env_variables.config ONLY if checking out code from a repo as well.  If the repo already exists nothing will be changed, so it's possible to rerun the build, without touching the code so you can change branches at will, rerun the build and have a new db on your custom branch. 
 
 ###PHP
-Php configuration by .htaccess is hard to do as the .htaccess is mounted internally in the container, the .htaccess in your docroot on your local machine will have no effect. Php Directives are set in the Dockerfile when the container is built. 
+Php configuration by .htaccess - change the file in src/docroot/.htaccess - permanent changes can be made to the php.ini file but this is out of scope in this release 
 
 ###Xdebug
-This should just work.  So in netbeans i configure the remote host and then map the directories so the remote file path /var/www/sites/docroot/index.php should correspond to the local directory drupal-tug/src/docroot/index.php
+This should just work.  So in netbeans i configure the host as localhost:8080
 Xdebug is setup to accept your ip address as supplied by the browser and route the traffic back to it. 
-If the version of Drupal in the apache-server (which is downloaded each time the container is built) doesnt match the version in drupal-tug/src/docroot - then you will have odd symptoms where xdebug appears to be working but gets stuck on empty lines - because the files are mismatched
 
 #TODO
 1. Varnish server
 2. Solr server configuration
 3. mysql webadmin interface
-4. sites/all/translations needs to be writable by the webserver or download all translations at once
+4. automatically detect and delete a line in a supplied db.sql that creates a db
+5. automate disabling routing for inspecting a compromised code base
 6. behat editor interface
 7. phpunit
 9. Squid server for locally storing container images
