@@ -10,8 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
 
 config.vm.provider :virtualbox do |vb|
-	vb.customize ["modifyvm", :id, "--memory", 3072]
-	vb.customize ["modifyvm", :id, "--cpus", 4]
+	vb.customize ["modifyvm", :id, "--memory", 2048]
+	vb.customize ["modifyvm", :id, "--cpus", 2]
         end
 begin
 
