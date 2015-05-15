@@ -23,7 +23,9 @@ It provides the following benefits:
 ###Build a new site from scratch (no db, no existing repo)
 ####configure the env_variables.config file
 1. If you want to install a fresh Drupal from scratch (i.e. run drush site-install) then set the sratch variable to 1 - this will run the script install_from_scratch.sh (see below)
-2. If the scratch variable is set, indicate the version of Drupal you want to download by setting the drupal_version var - else it will (should) default to the latest version)
+2. If the scratch variable is set, indicate the version of Drupal you want to download by setting the drupal_version var - else it will default to the latest version
+*** if on a windows platform, autodetection won't work so please ensure you set a version ***
+
 ###Build from an exsiting repo
 ####configure the config/env_variables.config file
 1. Set client_name and site_name (this is a regular string used to populate the drupal site-name variable)
