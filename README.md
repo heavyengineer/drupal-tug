@@ -4,7 +4,7 @@
 1. Clone the git repo `git clone git@github.com:heavyengineer/drupal-tug.git`
 2. Change to the drupal-tug directory `cd drupal-tug`
 3. Run `./build_env.sh`
-4. Wait a few minutes (ignore the error about not being able to send email)
+4. Wait a few minutes
 5. Connect to http://localhost:8080
 6. Point your ide at drupal-tug/src
 7. Start developing
@@ -65,8 +65,8 @@ Only your local machine, i.e. from your laptop, not from any virtual environment
 
 What happens is this:
 - Ubuntu 14 VM host machine is created in virtual box with docker installed 
-- Then the vagrantfile downloads and installs the containers (apache, mysql, memcache and solr) from docker.io (except apache-server which is currently built from source)
-- The apache webserver is looking at your local src/ directory - it will work as if it's a local webserver
+- Then the vagrantfile downloads and installs the containers (apache, mysql, memcache and solr) from docker.io
+- The apache webserver is looking at your local drupal-tug/src/docroot/ directory - it will work as if it's a local webserver
 
 ##DRUSH (Ddrush.sh)
 There is a handy util in the root directory Ddrush.sh - this is a wrapper for drush commands. Append regular drush commands, e.g.  To clear the cache run:
