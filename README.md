@@ -1,10 +1,10 @@
 #DRUPAL-TUG
 
 ## Ultra quick-start
-1. clone the git repo `git clone git@github.com:heavyengineer/drupal-tug.git`
-2. cd into drupal-tug
+1. Clone the git repo `git clone git@github.com:heavyengineer/drupal-tug.git`
+2. Change to the drupal-tug directory `cd drupal-tug`
 3. Run ./build_env.sh
-4. wait a few minutes
+4. Wait a few minutes (ignore the error about not being able to send email)
 5. Connect to http://localhost:8080
 6. Point your ide at drupal-tug/src
 7. Start developing
