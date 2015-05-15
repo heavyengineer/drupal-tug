@@ -73,9 +73,9 @@ if apache == 1
 config.vm.define "apache-server" do |v|
     v.vm.provider "docker" do |d|
       	d.name = "apache-server"
-      #	d.image = "steevi6/apache-php:latest"
+      	d.image = "steevi6/apache-server"
       # build_dir is the source dockerfile that the image (above) is created from
-       d.build_dir = "./dockers/apache"
+      # d.build_dir = "./dockers/apache"
       	d.has_ssh = FALSE
 	# can't do port 80 without running as root.  could do iptables on the vhost tho
         d.ports = ["8080:80"]
