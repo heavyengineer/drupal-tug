@@ -19,6 +19,11 @@ It provides the following benefits:
 3. Instead of migrating to a production infrastructure developers can develop the code on a near complete (if not complete) production environment significantly de-risking complex infrastructure deployments
 4.  Never again will you hear 'well it works locally for me' *ymmv
 
+## Pre-requisites
+This has been tested on linux and MacOSX.
+* Virtualbox (https://www.virtualbox.org/)
+* For windows, install a version of Curl (http://curl.haxx.se/download.html)
+
 ##Quickstart - How to use
 ###Build a new site from scratch (no db, no existing repo)
 ####configure the env_variables.config file
