@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./build_scripts/check_install.sh
+
 echo "Building vagrant stuff"
 vagrant up --provider=docker --no-parallel 
 
