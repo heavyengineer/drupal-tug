@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="drupalTug">
 <head><title>Drupal-tug Gui</title>
   <script type="text/javascript" src="jspm_packages/system.js" /></script>
   <script type="text/javascript" src="config.js" /></script>
 	  <script type="text/javascript" src="actions.js" /></script>
 		  <script type="text/javascript">System.import('./app/app');</script>
 </head>
-<body ng-app="drupalTug">
-  <div ng-controller="userCtrl as u">
-        <h2>List of Github users</h2>
-        <ul ng-repeat="usr in u.users">
-            <li>{{usr.id}}. {{usr.login}} <img src="{{usr.avatar_url}}" height="50px" alt=""></li>
-        </ul>
-    </div>
+<body ng-controller="envCtrl">
   <h1>Drupal-tug Gui</h1>
+  <br />
+  <form>
+    <div ng-repeat="var in env_variables">
+      <label>{{var.name}}</label>
+      <input  ng-model="var.value" >
+    </div>
+    <button ng-click="save()">Save</button>
+    <p>{{msg}}</p>
+</form>
+
+  <br />
   <ul>
-   <li><a href="#" id="edit-vagrant-vars">Edit Vagrant Vars</a></li>
+   <li><a href="vagrant" id="edit-vagrant-vars">Edit Vagrant Vars</a></li>
    <li><a href="#" id="edit-drupal-vars">Edit Drupal Vars</a></li>
    <li><a href="#" id="build">Build link</a></li>
  </ul>
