@@ -1,8 +1,16 @@
 import angular from 'angular';
-import * as UserModule from './user/user.module';
 
-console.log(angular.version);
+var drupalTug = angular.module('drupalTug',[]);
 
-angular.module('drupalTug',[])
-.factory('userSvc', UserModule.svc)
-.controller('userCtrl', UserModule.ctrl);
+drupalTug.controller('envCtrl', function($scope) {
+
+  var jf = require('jsonfile')
+  var file = __dirname+'/config/env_variables.json'
+  var out = jf.readFileSync(file);
+
+$scope.env_variables = out['env'];
+
+  $scope.save = function() {
+    $scope.msg = 'yoink';
+  };
+});
