@@ -8,9 +8,14 @@ drupalTug.controller('envCtrl', function($scope) {
   var file = __dirname+'/config/env_variables.json'
   var out = jf.readFileSync(file);
 
-$scope.env_variables = out['env'];
+$scope.env_variables = out;
 
   $scope.save = function() {
-    $scope.msg = 'yoink';
+    // some kind of try/catch here?
+    $scope.msg = 'Updated'
+
+var obj = $scope.env_variables
+
+jf.writeFileSync(file, obj)
   };
 });

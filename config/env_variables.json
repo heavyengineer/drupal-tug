@@ -1,54 +1,67 @@
-{
-    "env": [
-        {
-            "name": "client_name",
-            "value": "myclientname"
-        },
-        {
-            "name": "site_name",
-            "value": "myclientname"
-        },
-        {
-          "name":"repo_url",
-          "value":""
-        },
-        {
-          "name":"scratch",
-          "value":"1"
-        },
-        {
-          "name":"fast",
-          "value":""
-        },
-        {
-          "name":"drupal_version",
-          "value":""
-        },
-        {"name":"default_branch",
-        "value":"develop"},
-        {
-          "name":"sql_url",
-          "value":""
-        },
-        {
-          "name":"stage_file_proxy_origin",
-          "value":""
-        },
-        {
-          "name":"drupal_user_1_username",
-          "value":"admin"
-        },
-        {
-          "name":"drupal_user_1_password",
-          "value":"admin"
-        },
-        {
-          "name":"drupal_locale",
-          "value":"gb"
-        },
-        {
-          "name":"drupal_site_mail",
-          "value":"steev@initsix.co.uk"
-        }
-    ]
-}
+[
+  {
+    "name": "client_name",
+    "value": "myclientname",
+    "$$hashKey": "object:3"
+  },
+  {
+    "name": "site_name",
+    "value": "myclientname",
+    "$$hashKey": "object:4"
+  },
+  {
+    "name": "repo_url",
+    "value": "yoink",
+    "$$hashKey": "object:5"
+  },
+  {
+    "name": "scratch",
+    "value": "1",
+    "$$hashKey": "object:6"
+  },
+  {
+    "name": "fast",
+    "value": "dsada",
+    "$$hashKey": "object:7"
+  },
+  {
+    "name": "drupal_version",
+    "value": "",
+    "$$hashKey": "object:8"
+  },
+  {
+    "name": "default_branch",
+    "value": "develop",
+    "$$hashKey": "object:9"
+  },
+  {
+    "name": "sql_url",
+    "value": "",
+    "$$hashKey": "object:10"
+  },
+  {
+    "name": "stage_file_proxy_origin",
+    "value": "",
+    "$$hashKey": "object:11"
+  },
+  {
+    "name": "drupal_user_1_username",
+    "value": "admin",
+    "$$hashKey": "object:12"
+  },
+  {
+    "name": "drupal_user_1_password",
+    "value": "admin",
+    "$$hashKey": "object:13"
+  },
+  {
+    "name": "drupal_locale",
+    "value": "gb",
+    "$$hashKey": "object:14"
+  },
+  {
+    "name": "drupal_site_mail",
+    "value": "steev@initsix.co.uk",
+    "$$hashKey": "object:15"
+  }
+]
