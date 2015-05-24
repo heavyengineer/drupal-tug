@@ -18,12 +18,18 @@
     <p>{{msg}}</p>
 </form>
 <br />
-<h2>Test</h2><div id="stdout"></div>
+<h2>Test</h2><pre id="stdout"></pre>
 <script>
-    require('ipc').on('ping', function(message) {
+    require('ipc').on('build', function(message) {
       console.log(message)
 
-      document.getElementById("stdout").innerHTML = '<pre>'+message+'</pre>'
+      //document.getElementById("stdout").innerHTML = '<pre>'+message+'</pre>'
+
+      var theDiv = document.getElementById("stdout");
+var content = document.createTextNode(message);
+theDiv.appendChild(content);
+
+
     });
   </script>
   <br />
