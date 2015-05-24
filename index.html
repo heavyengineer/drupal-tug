@@ -22,14 +22,9 @@
 <script>
     require('ipc').on('build', function(message) {
       console.log(message)
-
-      //document.getElementById("stdout").innerHTML = '<pre>'+message+'</pre>'
-
-      var theDiv = document.getElementById("stdout");
-var content = document.createTextNode(message);
-theDiv.appendChild(content);
-
-
+      var output = document.getElementById("stdout");
+      var content = document.createTextNode(message);
+      output.appendChild(content);
     });
   </script>
   <br />
