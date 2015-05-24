@@ -3,7 +3,7 @@
 source ./build_scripts/check_install.sh
 
 echo "Building vagrant stuff"
-vagrant up --provider=docker --no-parallel 
+vagrant up --provider=docker --no-parallel
 
 echo "Build local development environment"
 

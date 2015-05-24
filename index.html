@@ -8,6 +8,15 @@
 </head>
 <body ng-controller="envCtrl">
   <h1>Drupal-tug Gui</h1>
+
+  <div id="menu">
+  <ul>
+   <li><a href="vagrant" id="edit-vagrant-vars">Edit Vagrant Vars</a></li>
+   <li><a href="#" id="edit-drupal-vars">Edit Drupal Vars</a></li>
+   <li><a href="#" id="build">Build link</a></li>
+ </ul>
+ </div>
+
   <br />
   <form>
     <div ng-repeat="var in env_variables">
@@ -18,7 +27,9 @@
     <p>{{msg}}</p>
 </form>
 <br />
-<h2>Test</h2><pre id="stdout"></pre>
+<div id="output_container">
+<h2>Output</h2><pre id="stdout"></pre>
+</div>
 <script>
     require('ipc').on('build', function(message) {
       console.log(message)
@@ -27,11 +38,6 @@
       output.appendChild(content);
     });
   </script>
-  <br />
-  <ul>
-   <li><a href="vagrant" id="edit-vagrant-vars">Edit Vagrant Vars</a></li>
-   <li><a href="#" id="edit-drupal-vars">Edit Drupal Vars</a></li>
-   <li><a href="#" id="build">Build link</a></li>
- </ul>
+  
 </body>
 </html>
