@@ -25,8 +25,15 @@ app.on('ready',function(){
 var ipc = require("ipc");
 
 ipc.on('build',function(){
-//  shelljs.exec('vagrant up --provider=docker --no-parallel')
-shelljs.exec('./build_env.sh')
+
+var sys = require('sys');
+var exec = require('child_process').exec;
+
+function puts(error, stdout, stderr) {
+  sys.puts(stdout)
+  mainWindow.webContents.send('ping', stdout);
+}
+exec("./build_env.sh", puts);
   });
 
 ipc.on('edit-vagrant-vars',function(){

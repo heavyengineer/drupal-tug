@@ -17,7 +17,15 @@
     <button ng-click="save()">Save</button>
     <p>{{msg}}</p>
 </form>
+<br />
+<h2>Test</h2><div id="stdout"></div>
+<script>
+    require('ipc').on('ping', function(message) {
+      console.log(message)
 
+      document.getElementById("stdout").innerHTML = '<pre>'+message+'</pre>'
+    });
+  </script>
   <br />
   <ul>
    <li><a href="vagrant" id="edit-vagrant-vars">Edit Vagrant Vars</a></li>
