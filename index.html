@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="drupalTug">
-<head><title>Drupal-tug Gui</title>
+<head>
+  <title>Drupal-tug Gui</title>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
   <script type="text/javascript" src="jspm_packages/system.js" /></script>
   <script type="text/javascript" src="config.js" /></script>
-	  <script type="text/javascript" src="actions.js" /></script>
-		  <script type="text/javascript">System.import('./app/app');</script>
+  <script type="text/javascript">System.import('./app/app');</script>
+  <script type="text/javascript" src="throbber.js-0.0.2/throbber.js" /></script>
+	<script type="text/javascript" src="actions.js" /></script>
+
 </head>
 <body ng-controller="envCtrl">
   <h1>Drupal-tug Gui</h1>
-
   <div id="menu">
   <ul>
-   <li><a href="vagrant" id="edit-vagrant-vars">Edit Vagrant Vars</a></li>
-   <li><a href="#" id="edit-drupal-vars">Edit Drupal Vars</a></li>
-   <li><a href="#" id="build">Build link</a></li>
+    <li><a href="#" id="build">Build</a></li>
+   <li><a href="#" id="halt_containers">Halt</a></li>
+   <li><a href="#" id="destroy_containers">Destroy</a></li>
  </ul>
  </div>
 
-  <br />
-  <form>
+  <form id="config">
     <div ng-repeat="var in env_variables">
       <label>{{var.name}}</label>
-      <input  ng-model="var.value" >
+      <input ng-model="var.value" >
     </div>
     <button ng-click="save()">Save</button>
     <p>{{msg}}</p>
 </form>
-<br />
+
 <div id="output_container">
-<h2>Output</h2><pre id="stdout"></pre>
+<h2>Output</h2>
+<div><a href="#" id="clear_output">Clear Output</a></div>
+<pre id="stdout">Nothing here&#10;&#13;</pre>
 </div>
-<script>
-    require('ipc').on('build', function(message) {
-      console.log(message)
-      var output = document.getElementById("stdout");
-      var content = document.createTextNode(message);
-      output.appendChild(content);
-    });
-  </script>
-  
+
 </body>
 </html>
