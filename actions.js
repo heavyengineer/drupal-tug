@@ -1,27 +1,45 @@
+// ipc communication with browser process in index.js
 var ipc = require("ipc");
 
 window.onload = function(){
+
+// ipc bindings to send messages to index.js
 document.getElementById('build').onclick = function(){
   ipc.send('build');
 }
 
-document.getElementById('edit-vagrant-vars').onclick = function(){
-  ipc.send('edit-vagrant-vars');
+document.getElementById('halt_containers').onclick = function(){
+  ipc.send('halt_containers');
 }
 
-document.getElementById('edit-drupal-vars').onclick = function(){
-  ipc.send('edit-drupal-vars');
+document.getElementById('destroy_containers').onclick = function(){
+  ipc.send('destroy_containers');
 }
 
+// receive ipc messages from index.js
+ipc.on('rcv_stdout', function(message) {
+  var output = document.getElementById("stdout");
+  var content = document.createTextNode(message);
+  output.appendChild(content);
+  // scroll to bottom of stdout so most up to date is on the page
+  var objDiv = document.getElementById("stdout");
+  objDiv.scrollTop = objDiv.scrollHeight;
+});
+
+// in page js stuff
+document.getElementById('clear_output').onclick = function(){
+  document.getElementById("stdout").innerHTML = 'Output cleared.&#10;&#13;';
+  event.preventDefault();
 }
-
-/* try using node commands here
-var jf = require('jsonfile')
-    var util = require('util')
-
-    var file = './config/env_variables.json'
-
-    jf.readFile(file, function(err, obj) {
-      console.log(util.inspect(obj))
-    })
-    */
+/*
+var throb = Throbber({
+    size: 32,
+    fade: 1000, // fade duration, will also be applied to the fallback gif
+    fallback: 'ajax-loader.gif',
+    rotationspeed: 0,
+    lines: 14,
+    strokewidth: 1.8,
+    alpha: 0.4 // this will also be applied to the gif
+}).appendTo( document.getElementById( 'destroy_containers' ) ).start();
+*/
+}
