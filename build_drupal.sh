@@ -48,3 +48,5 @@ else
 source ./install_from_scratch.sh
 source ./local_post_install.sh
 fi
+
+exit 0
