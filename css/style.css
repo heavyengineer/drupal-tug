@@ -1,0 +1,25 @@
+*{
+  font-family: arial;
+}
+
+#config{
+  float: left;
+  max-width: 500px;
+  max-height: 600px;
+
+}
+
+#output_container{
+  float: left;
+  max-width: 65%;
+
+}
+
+#output_container h2{
+  margin-top: 0;
+}
+
+pre#stdout{
+  max-height: 475px;
+  overflow: scroll;
+}
