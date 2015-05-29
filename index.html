@@ -22,9 +22,11 @@
 
   <form id="config">
     <h2>Config</h2>
-    <div ng-repeat="var in env_variables">
+    <div ng-repeat="var in env_variables" ng-switch="var.name">
       <label>{{var.name}}</label>
-      <input ng-model="var.value" >
+      <input ng-switch-when="scratch" ng-model="var.value" type="checkbox" ng-true-value="'1'" ng-false-value="''">
+      <input ng-switch-when="fast" ng-model="var.value" type="checkbox" ng-true-value="'1'" ng-false-value="''">
+      <input  ng-switch-default ng-model="var.value" >
     </div>
     <button ng-click="save()">Save</button>
     <p>{{msg}}</p>
