@@ -2,24 +2,48 @@
   font-family: arial;
 }
 
+#menu{
+  width: 100%;
+}
+
+#menu li{
+  float: left;
+  display: inline-block;
+  margin-right: 5px;
+}
+
 #config{
+clear: both;
   float: left;
   max-width: 500px;
   max-height: 600px;
-
 }
 
 #output_container{
   float: left;
-  max-width: 65%;
-
+  width: 60%;
+  margin-left: 15px;
 }
 
-#output_container h2{
-  margin-top: 0;
+#output_container h2,
+form h2{
+  background-color: grey;
+  color: white;
+  padding: 2px;
+  width: 100%;
+  display: inline-block;
 }
 
 pre#stdout{
   max-height: 475px;
   overflow: scroll;
+}
+
+form>div{
+  margin-top: 5px;
+}
+
+label.ng-binding{
+  min-width: 185px;
+  display: inline-block;
 }
