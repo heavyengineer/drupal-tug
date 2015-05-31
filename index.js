@@ -12,12 +12,18 @@ app.on('window-all-closed',function(){
 });
 
 app.on('ready',function(){
-  mainWindow = new BrowserWindow({width: 1024, height: 768});
+  mainWindow = new BrowserWindow({width: 1280, height: 800});
   mainWindow.loadUrl('file://'+__dirname+'/index.html');
   mainWindow.openDevTools();
   mainWindow.on('closed',function(){
     mainWindow = null;
   })
+
+  //var win=mainWindow;
+  //var dialog = require('dialog');
+  //var sql_file = dialog.showOpenDialog({ properties: [ 'openFile']});
+//console.log(sql_file)
+
 })
 
 // communication channel with renderer process

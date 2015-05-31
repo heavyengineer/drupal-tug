@@ -30,8 +30,6 @@ var arrayLength = obj.length;
 for (var i = 0; i < arrayLength; i++) {
     outstring += obj[i]['name'] + '='
 
-
-    console.log(obj[i]['name'])
     if(obj[i]['value']){
       outstring += '"' + obj[i]['value'] + '"'
     }
@@ -47,3 +45,25 @@ fs.writeFile(__dirname+'/config/env_variables.config', outstring, function (err)
 
   };
 });
+
+drupalTug.directive('electronDialog', function () {
+    return {
+      // use ngmodel to update the value
+      require: 'ngModel',
+      link: function ($scope, element, attrs, ctrl) {
+            element.bind('click', function () {
+
+              // use the native file selector
+                var remote = require('remote');
+                var dialog = remote.require('dialog');
+                dialog.showOpenDialog({ properties: [ 'openFile']},function(selectedPath) {
+
+                   if(selectedPath) {
+                     // update the value in the view and model
+                     ctrl.$setViewValue(selectedPath);
+                     ctrl.$render();
+                    }
+                  })
+                })
+}}
+ß});

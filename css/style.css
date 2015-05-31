@@ -43,7 +43,7 @@ form>div{
   margin-top: 5px;
 }
 
-label.ng-binding{
+label.ng-scope{
   min-width: 185px;
   display: inline-block;
 }

@@ -23,9 +23,22 @@
   <form id="config">
     <h2>Config</h2>
     <div ng-repeat="var in env_variables" ng-switch="var.name">
-      <label>{{var.name}}</label>
+      <label ng-switch-when="drupal_user_1_username">Username</label>
+      <label ng-switch-when="drupal_user_1_password">Password</label>
+      <input  ng-switch-when="drupal_user_1_password" ng-model="var.value" >
+      <input  ng-switch-when="drupal_user_1_username" ng-model="var.value" >
+
+      <label ng-switch-default>{{var.name}}</label>
+
+      <label ng-switch-when="scratch">Build from scratch</label>
       <input ng-switch-when="scratch" ng-model="var.value" type="checkbox" ng-true-value="'1'" ng-false-value="''">
+
+      <label ng-switch-when="fast">Fast build</label>
       <input ng-switch-when="fast" ng-model="var.value" type="checkbox" ng-true-value="'1'" ng-false-value="''">
+
+      <label ng-switch-when="sql_url">Select SQL file</label>
+      <input ng-switch-when="sql_url" ng-model="var.value" electron-dialog>
+
       <input  ng-switch-default ng-model="var.value" >
     </div>
     <button ng-click="save()">Save</button>
