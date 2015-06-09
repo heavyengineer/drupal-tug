@@ -11,4 +11,3 @@ echo "loading db"
 $vagrant_apache_docker_run  -- $drush_create_db
 $vagrant_apache_docker_run  -- $drush_restore_db
 
-source ./local_post_install.sh
