@@ -28,7 +28,7 @@ var spawn = require('child_process').spawn;
 
 ipc.on('build',function(){
 
-  var build = spawn('./build_env.sh');
+  var build = spawn('./build_scripts/build_env.sh');
 
     // add a 'data' event listener for the spawn instance
     build.stdout.on('data', function(data) {
@@ -47,7 +47,7 @@ ipc.on('build',function(){
 
 ipc.on('halt_containers',function(){
 // load form populated with json data about vagrant
-var halt = spawn('./Thalt.sh');
+var halt = spawn('./commands/Thalt.sh');
 
   // add a 'data' event listener for the spawn instance
   halt.stdout.on('data', function(data) {
@@ -67,7 +67,7 @@ var halt = spawn('./Thalt.sh');
 ipc.on('destroy_containers',function(){
 
   // load form populated with json data about vagrant
-  var destroy = spawn('./Tdestroy.sh')
+  var destroy = spawn('./commands/Tdestroy.sh')
 
     // add a 'data' event listener for the spawn instance
     destroy.stdout.on('data', function(data) {
@@ -87,7 +87,7 @@ ipc.on('destroy_containers',function(){
 ipc.on('reload_db',function(){
 
   // load form populated with json data about vagrant
-  var reload_db = spawn('./reload_db.sh')
+  var reload_db = spawn('./commands/reload_db.sh')
 
           rcv_stdout('Reloading the database.\n\r')
     // add a 'data' event listener for the spawn instance
@@ -108,7 +108,7 @@ ipc.on('reload_db',function(){
 ipc.on('backup_db',function(){
 
   // load form populated with json data about vagrant
-  var backup_db = spawn('./backupdb.sh')
+  var backup_db = spawn('./commands/backupdb.sh')
 
 	  rcv_stdout('Backing up the database to ./db.\n\r')
     // add a 'data' event listener for the spawn instance
