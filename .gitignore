@@ -2,3 +2,5 @@ src
 src*
 drupal*
 db/db.sql
+node_modules
+config
