@@ -14,7 +14,7 @@ app.on('window-all-closed',function(){
 app.on('ready',function(){
   mainWindow = new BrowserWindow({width: 1280, height: 800});
   mainWindow.loadUrl('file://'+__dirname+'/index.html');
-//  mainWindow.openDevTools();
+  mainWindow.openDevTools();
   mainWindow.on('closed',function(){
     mainWindow = null;
   })
@@ -80,6 +80,27 @@ ipc.on('destroy_containers',function(){
             rcv_stdout('Failed' + code + '.\n\r')
         }else{
           rcv_stdout('Job completed Successfully.\n\r')
+        }
+    });
+});
+
+ipc.on('reload_db',function(){
+
+  // load form populated with json data about vagrant
+  var reload_db = spawn('./reload_db.sh')
+
+          rcv_stdout('Reloading the database.\n\r')
+    // add a 'data' event listener for the spawn instance
+    reload_db.stdout.on('data', function(data) {
+      rcv_stdout(data)
+      });
+
+    // when the spawn child process exits, check if there were any errors
+    reload_db.on('exit', function(code) {
+        if (code != 0) {
+            rcv_stdout('Failed' + code + '.\n\r')
+        }else{
+          rcv_stdout('DB reloaded Successfully.\n\r')
         }
     });
 });

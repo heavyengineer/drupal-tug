@@ -16,6 +16,10 @@ document.getElementById('destroy_containers').onclick = function(){
   ipc.send('destroy_containers');
 }
 
+document.getElementById('reload_db').onclick = function(){
+  ipc.send('reload_db');
+}
+
 // receive ipc messages from index.js
 ipc.on('rcv_stdout', function(message) {
   var output = document.getElementById("stdout");
