@@ -105,6 +105,27 @@ ipc.on('reload_db',function(){
     });
 });
 
+ipc.on('backup_db',function(){
+
+  // load form populated with json data about vagrant
+  var backup_db = spawn('./backupdb.sh')
+
+	  rcv_stdout('Backing up the database to ./db.\n\r')
+    // add a 'data' event listener for the spawn instance
+    backup_db.stdout.on('data', function(data) {
+      rcv_stdout(data)
+      });
+
+    // when the spawn child process exits, check if there were any errors
+    backup_db.on('exit', function(code) {
+	if (code != 0) {
+	    rcv_stdout('Failed' + code + '.\n\r')
+	}else{
+	  rcv_stdout('DB backedup Successfully.\n\r')
+	}
+    });
+});
+
 /** sends data to the conatainer on the renderer process page */
 function rcv_stdout(data){
   mainWindow.webContents.send('rcv_stdout', data.toString('utf8'))
