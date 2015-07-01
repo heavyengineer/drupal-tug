@@ -1,5 +1,8 @@
 #!/bin/bash
 
+me="backup_src_dir.sh"
+echo ">>>>>>>>executing $me"
+
 ##############################################
 #######    backup the src directory if it exists 
 ##############################################

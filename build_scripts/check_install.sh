@@ -1,4 +1,6 @@
 #!/bin/bash
+me="check_install.sh"
+echo ">>>>>>>>executing $me"
 
 # vars for coloured output
 RED='\033[0;31m'

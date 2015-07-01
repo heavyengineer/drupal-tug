@@ -5,6 +5,8 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|  
   config.vm.box = "ubuntu/trusty64"
+config.vm.provision :shell, inline: "sudo apt-get update"
+
   config.vm.provision "docker"
   config.vm.provision "shell", inline:
     "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"

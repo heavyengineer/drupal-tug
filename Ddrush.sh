@@ -6,4 +6,4 @@ source ./config/vagrant_commands.config
 # this should accept and execute all the space seperated commands from the arguments
 # as one bug drush command.  So running ./Ddrush.sh cc all should run 'drush cc all' 
 # an apache container
-$vagrant_apache_docker_run -- $drush $*
+$vagrant_apache_docker_exec -- $drush $*

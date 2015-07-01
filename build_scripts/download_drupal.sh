@@ -1,4 +1,6 @@
 #!/bin/bash
+me="download_drupal.sh"
+echo ">>>>>>>>executing $me"
 
 # if a version of drupal has been specified in the env_variables.conf
 if [ -n "$drupal_version" ];then

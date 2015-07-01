@@ -1,5 +1,7 @@
 #!/bin/bash
 # build drupal software from source and load db
+me="build_drupal.sh"
+echo ">>>>>>>>executing $me"
 
 # load vars from the config file to prevent errant changes in here
 source ./config/env_variables.config

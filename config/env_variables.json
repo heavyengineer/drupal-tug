@@ -1,22 +1,22 @@
 [
   {
     "name": "client_name",
-    "value": "myclientname",
+    "value": "viking",
     "$$hashKey": "object:3"
   },
   {
     "name": "site_name",
-    "value": "myclientname",
+    "value": "viking",
     "$$hashKey": "object:4"
   },
   {
     "name": "repo_url",
-    "value": "yoink",
+    "value": "git@bitbucket.org:rrdis/viking-cruises-gfw.git",
     "$$hashKey": "object:5"
   },
   {
     "name": "scratch",
-    "value": "1",
+    "value": "",
     "$$hashKey": "object:6"
   },
   {
@@ -36,7 +36,9 @@
   },
   {
     "name": "sql_url",
-    "value": "",
+    "value": [
+      "/media/steev/data1/Appnovation/viking/v2.sql"
+    ],
     "$$hashKey": "object:10"
   },
   {
@@ -56,7 +58,7 @@
   },
   {
     "name": "drupal_locale",
-    "value": "gb",
+    "value": "GB",
     "$$hashKey": "object:14"
   },
   {

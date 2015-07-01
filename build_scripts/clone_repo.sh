@@ -1,4 +1,6 @@
 #!/bin/bash
+me="clone_repo.sh"
+echo ">>>>>>>>executing $me"
 
 # if docroot doesnt exist, clone it in
 if [ ! -d ${repo_dir}docroot ]; then
