@@ -1,7 +1,9 @@
 #!/bin/bash
 # build drupal software from source and load db
+if [ $DEBUG = 1 ];then
 me="build_drupal.sh"
 echo ">>>>>>>>executing $me"
+fi
 
 # load vars from the config file to prevent errant changes in here
 source ./config/env_variables.config
@@ -27,7 +29,7 @@ source ./build_scripts/load_db.sh
 # the settings.php - wrt the drupal hash, then this should maybe only be stored on production
 # anyway there is no need for a developer to have access to the salt
 
-source ./build_scripts/move_settings.php
+source ./build_scripts/move_settings.sh
 
 
 else
