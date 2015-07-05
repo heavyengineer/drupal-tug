@@ -6,9 +6,11 @@
 # copy it to the db/ directory if it hasnt
 # previously we were using a static filename, db.sql.  this is no longer needed as we can reference the
 # name from the .config file. might be some use to version these files tho?
-me=`basename "$0"`
+if [ $DEBUG -eq 1 ];then
 me="copy_db.sh"
 echo ">>>>>>>>executing $me"
+fi
+
 . config/env_variables.config
 
 if [ ! -d "db" ];then
@@ -25,4 +27,3 @@ echo "copying ${filename}"
   else
 	  echo "${filename} already exists"
 fi
-wait 5

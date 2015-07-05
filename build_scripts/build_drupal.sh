@@ -1,6 +1,6 @@
 #!/bin/bash
 # build drupal software from source and load db
-if [ $DEBUG = 1 ];then
+if [ $DEBUG -eq 1 ];then
 me="build_drupal.sh"
 echo ">>>>>>>>executing $me"
 fi
@@ -22,7 +22,7 @@ echo "scratch is not set so we will download the repo from the repo_url"
 
 source ./build_scripts/clone_repo.sh
 source ./build_scripts/load_db.sh
-
+source ./build_scripts/copy_db.sh
 # if not installing from scratch then the settings file will need some manipulation
 # this needs some thinkng but easiest right now is to replace the existing settings.php
 # with one that works with the docker containers.  probably a good idea will be to rebuild

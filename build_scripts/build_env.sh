@@ -1,7 +1,8 @@
 #!/bin/bash
-
+if [ $DEBUG -eq 1 ];then
 me=`basename "$0"`
 echo "executing $me"
+fi
 
 source ./build_scripts/check_install.sh
 
@@ -11,7 +12,7 @@ vagrant up --provider=docker --no-parallel
 echo "Build local development environment"
 
 # source the db file to make it available to vagrant + Docker
-source ./build_scripts/copy_db.sh
+#source ./build_scripts/copy_db.sh
 
 # do drupal build here
-./build_scripts/build_drupal.sh
+source ./build_scripts/build_drupal.sh
