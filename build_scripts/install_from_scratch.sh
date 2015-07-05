@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $DEBUG -eq 0 ];then
+if [ $DEBUG -eq 1 ];then
 me="install_from_scratch.sh"
 echo ">>>>>>>>executing $me"
 fi
@@ -49,7 +49,6 @@ source ./build_scripts/move_settings.sh
 #########################
 #### run site install on the apache-server container
 ########################
-echo "executing install from scratch"
 echo "running site install on the apache-server"
 
 #$vagrant_apache_docker_run  -- $drush_site_install
