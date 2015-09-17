@@ -22,17 +22,17 @@ Start the gui
 
 ###Anatomy
 ####Electron gui
-The gui starts here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/index.js
-backend functions here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/app/app.js
-Presentation https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/index.html
-When the user clicks ‘update’ a json config file is written here - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.json
-a further bash config file is written here - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.config - this is used to supply vars from the gui to the drupal-tug scripts
+1. The gui starts here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/index.js
+2. backend functions here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/app/app.js
+3. Presentation https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/index.html
+4. When the user clicks ‘update’ a json config file is written here - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.json
+5. a further bash config file is written here - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.config - this is used to supply vars from the gui to the drupal-tug scripts
 
 Once the gui is configured and config files written, the user then clicks build
 
 ####Drupal-tug
-The build starts here https://github.com/heavyengineer/drupal-tug/tree/feature/electron-gui/build_scripts and then further scripts are called and config variables are sourced
-The script variables are here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.config
+1. The build starts here https://github.com/heavyengineer/drupal-tug/tree/feature/electron-gui/build_scripts and then further scripts are called and config variables are sourced
+2. The script variables are here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.config
 
 The rest of the readme below still applies but some files may be in new locations
 
