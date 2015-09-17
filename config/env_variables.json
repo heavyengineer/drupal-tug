@@ -1,22 +1,22 @@
 [
   {
     "name": "client_name",
-    "value": "viking",
+    "value": "test_client",
     "$$hashKey": "object:3"
   },
   {
     "name": "site_name",
-    "value": "viking",
+    "value": "test_sitename",
     "$$hashKey": "object:4"
   },
   {
     "name": "repo_url",
-    "value": "git@bitbucket.org:rrdis/viking-cruises-gfw.git",
+    "value": "git@github.com:heavyengineer/drupal-tug-test.git",
     "$$hashKey": "object:5"
   },
   {
     "name": "scratch",
-    "value": "",
+    "value": "1",
     "$$hashKey": "object:6"
   },
   {
@@ -36,9 +36,7 @@
   },
   {
     "name": "sql_url",
-    "value": [
-      "/media/steev/data1/Appnovation/viking/v2.sql"
-    ],
+    "value": "",
     "$$hashKey": "object:10"
   },
   {

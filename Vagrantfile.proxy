@@ -6,6 +6,7 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|  
   config.vm.box = "ubuntu/trusty64"
 config.vm.provision :shell, inline: "sudo apt-get update"
+config.vm.provision :shell, inline: "sudo apt-get upgrade -y"
 
   config.vm.provision "docker"
   config.vm.provision "shell", inline:
@@ -21,10 +22,10 @@ begin
 # Apache
   config.vm.network :forwarded_port, guest: 8080, host: 8080
 # MySQL
-  config.vm.network :forwarded_port, guest: 3306, host: 3306 
+#  config.vm.network :forwarded_port, guest: 3306, host: 3306 
 # Memcache
-  config.vm.network :forwarded_port, guest: 11211, host: 11211 
+#  config.vm.network :forwarded_port, guest: 11211, host: 11211 
 # solr
-  config.vm.network :forwarded_port, guest: 8983, host: 8983 
+# config.vm.network :forwarded_port, guest: 8983, host: 8983 
 end
 end
