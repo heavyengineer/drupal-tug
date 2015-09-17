@@ -1,4 +1,42 @@
 #DRUPAL-TUG
+latest version notes
+Latest branch: feature/electron-gui
+
+This uses electron to provide a front end using Angularjs as a desktop app.  This frontend is used to configure the tug scripts which run in the background.  Console output is echoed to the gui. 
+
+The main problem i have been having with the software has been mounting the local disk for the apache-server Vagrant mounts the local disk fine, sometimes the apache-server can't find the /vagrant/ mount.  This was failing at random, sometimes working the second time, sometimes working after a container was destroyed etc. In the end i think i have put this down to mismatched versions. I think i let my dev environment gradually slip out of sync.  So i updated docker, vagrant, virtualbox and then set the apache-server to build from source each time (rather than downloading a container - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/Vagrantfile#L46) which seems to have more success with mounting the disk.  But if you halt the vagrant then restart it, the container will fail to mount the local disk again. 
+
+##How to test
+Get the code and switch to the correct branch
+```
+git clone git@github.com:heavyengineer/drupal-tug.git
+cd drupal-tug
+git fetch
+git checkout feature/electron-gui
+```
+Start the gui
+```
+./node-modules/.bin/electron
+```
+(ideally we should build the modules from package.json but they are in the repo for now)
+
+###Anatomy
+####Electron gui
+The gui starts here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/index.js
+backend functions here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/app/app.js
+Presentation https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/index.html
+When the user clicks ‘update’ a json config file is written here - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.json
+a further bash config file is written here - https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.config - this is used to supply vars from the gui to the drupal-tug scripts
+
+Once the gui is configured and config files written, the user then clicks build
+
+####Drupal-tug
+The build starts here https://github.com/heavyengineer/drupal-tug/tree/feature/electron-gui/build_scripts and then further scripts are called and config variables are sourced
+The script variables are here https://github.com/heavyengineer/drupal-tug/blob/feature/electron-gui/config/env_variables.config
+
+The rest of the readme below still applies but some files may be in new locations
+
+************** Original Readme below **************
 
 ## Ultra quick-start
 1. Clone the git repo `git clone git@github.com:heavyengineer/drupal-tug.git`
